@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shopping01.mappers.proMapper">
+
+	<resultMap id="bannerResult" type="BannerVO">
+		<result property="bannerId" column="banner_id" />
+		<result property="coment" column="coment" />
+	</resultMap>
+	<resultMap id="productResult" type="ProductVO">
+		<result property="productId" column="pro_id" />
+		<result property="productName" column="proname" />
+		<result property="productImg" column="img" />
+		<result property="cost" column="cost" />
+		<result property="sailCost" column="sailcost" />
+	</resultMap>
+	<resultMap id="productInfoResult" type="ProductInfoVO">
+		<result property="productId" column="pro_id" />
+		<result property="productName" column="proname" />
+		<result property="productImg" column="img" />
+		<result property="coment" column="coment" />
+		<result property="infoNum" column="infonum" />
+	</resultMap>
+	<resultMap id="basketResult" type="BasketVO">
+		<result property="userId" column="user_id" />
+		<result property="productId" column="pro_id" />
+		<result property="productId" column="pro_id" />
+		<result property="productName" column="proname" />
+		<result property="productImg" column="img" />
+	</resultMap>
+
+
+	<select id="selectBanner" resultMap="bannerResult">
+		<![CDATA[
+		 select * from shopping.banner
+		 where banner_id = #{bannerId}
+		]]>
+	</select>
+
+	<select id="selectProduct" resultMap="productResult">
+		<![CDATA[
+		 SELECT * FROM shopping.product
+		 Limit 6 offset #{productId}
+		]]>
+	</select>
+	<select id="selectProductInfo" resultMap="productInfoResult"
+		parameterType="integer">
+		<![CDATA[
+		 SELECT * FROM shopping.proinfo
+		 where pro_id = #{productId}
+		 order by infonum ASC
+		]]>
+	</select>
+	<select id="selectBasket" resultMap="basketResult"
+		parameterType="integer">
+		<![CDATA[
+		 SELECT * FROM shopping.basket
+		 where user_id = #{userId}
+		]]>
+	</select>
+	<select id="selectBasketInfo" resultMap="basketResult">
+		<![CDATA[
+		 SELECT b.user_id,p.pro_id, p.proname, p.img 
+		 FROM shopping.basket as b
+		 left join shopping.product as p
+         on b.pro_id = p.pro_id;
+		]]>
+	</select>
+	<insert id="insertBasket" parameterType="BasketVO">
+		<![CDATA[
+		 insert into shopping.basket(user_id, pro_id)
+		 values(#{userId}, #{productId})
+		]]>
+	</insert>
+	<delete id="deleteBasket" parameterType="BasketVO">
+		<![CDATA[
+	   delete from shopping.basket
+	   where
+	   user_id = #{userId} AND pro_id = #{productId}
+	]]>
+	</delete>
+</mapper>

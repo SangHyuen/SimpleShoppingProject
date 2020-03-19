@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shopping01.mappers.userMapper">
+
+	<resultMap id="userResult" type="UserVO">
+		<result property="userId" column="user_id" />
+		<result property="name" column="user_name" />
+		<result property="email" column="email" />
+		<result property="password" column="password" />
+		<result property="birth" column="birth" />
+		<result property="gender" column="gender" />
+	</resultMap>
+	
+	<resultMap id="resultUser" type="ResultUserVO">
+		<result property="userId" column="user_id" />
+		<result property="name" column="user_name" />
+		<result property="email" column="email" />
+		<result property="birth" column="birth" />
+		<result property="gender" column="gender" />
+	</resultMap>
+	
+	<resultMap id="tokenResult" type="TokenVO">
+		<result property="userId" column="user_id" />
+		<result property="token" column="token" />
+	</resultMap>
+	
+
+	<insert id="InsertUser" parameterType="UserVO">
+		<![CDATA[
+		 insert into shopping.user(user_name, email, password,birth,gender)
+		 values(#{name}, #{email}, #{password}, #{birth}, #{gender})
+		]]>
+	</insert>
+
+	<select id="SelectUserbyEmail" resultMap="userResult">
+      <![CDATA[
+         select * from shopping.user
+         where email = #{email}
+      ]]>
+	</select>
+	<insert id="insertToken" parameterType="TokenVO">
+		<![CDATA[
+		 insert into shopping.token(user_id, token)
+		 values(#{userId}, #{token})
+		]]>
+	</insert>
+	<select id="selectUserbyToken" resultMap="tokenResult">
+      <![CDATA[
+         select * from shopping.token
+         where token = #{token}
+      ]]>
+    </select>
+      
+<!-- 
+	
+	<select id="selectByFollowId" resultMap="followResult">
+      <![CDATA[
+         select * from codepresso.follow
+         where follower_id = #{followerId} AND followee_id = #{followeeId}
+      ]]>
+	</select>
+	<insert id="insertFeed" parameterType="followVO">
+		<![CDATA[
+		 insert into codepresso.feed(user_id,followee_id, post_id)
+		 values(#{userId}, #{followeeId},#{postId})
+		]]>
+	</insert>
+
+ -->
+</mapper>

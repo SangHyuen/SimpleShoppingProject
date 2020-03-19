@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+      PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.shopping01.domain.userVO" alias = "UserVO" />
+		<typeAlias type="com.shopping01.domain.resultUserVO" alias = "ResultUserVO" />
+		<typeAlias type="com.shopping01.domain.bannerVO" alias = "BannerVO" />
+		<typeAlias type="com.shopping01.domain.productVO" alias = "ProductVO" />
+		<typeAlias type="com.shopping01.domain.productInfoVO" alias = "ProductInfoVO" />
+		<typeAlias type="com.shopping01.domain.basketVO" alias = "BasketVO" />
+		<typeAlias type="com.shopping01.domain.tokenVO" alias = "TokenVO" />
+	</typeAliases>
+</configuration>
